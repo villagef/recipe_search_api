@@ -1,6 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import StarIcon from "@material-ui/icons/Star";
+import Rating from "@material-ui/lab/Rating";
 import {
   Modal,
   Grid,
@@ -9,7 +11,8 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Paper
+  Box,
+  Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -38,8 +41,8 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 420,
     [theme.breakpoints.up("sm")]: {
       height: 420,
-      marginLeft: 50
-    }
+      marginLeft: 50,
+    },
   },
   hashtags: {
     color: "#d59f2f",
@@ -54,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     [theme.breakpoints.up("sm")]: {
       padding: "30px 30px 0 0",
-    }
+    },
   },
   h2: {
     color: "#d59f2f",
@@ -66,16 +69,23 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "flex-start",
     [theme.breakpoints.up("sm")]: {
       width: "50%",
-    }
+    },
   },
   first: {
     width: "100%",
   },
-
 }));
 
 export default function Cocktail({ item, showModal, setShowModal }) {
   const classes = useStyles();
+
+  const handleRatings = (value) => {
+    const sum = value.reduce((total, num) => total + num);
+    const rating = sum / value.length;
+    return rating.toFixed(1);
+  };
+
+  handleRatings(item.ratings);
 
   const handleClose = () => {
     setShowModal(false);
@@ -98,6 +108,9 @@ export default function Cocktail({ item, showModal, setShowModal }) {
             <h6 style={{ color: "gray" }}>
               Written by {item.author} | Updated {item.modified}
             </h6>
+            <Box component="fieldset" mb={3} borderColor="transparent">
+              <Rating style={{ color: "#d59f2f", marginTop: "10px" }} name="read-only" value={handleRatings(item.ratings)} readOnly />
+            </Box>
           </Grid>
           <Grid className={classes.row} item>
             <CardMedia
@@ -107,7 +120,7 @@ export default function Cocktail({ item, showModal, setShowModal }) {
             />
           </Grid>
           <Grid className={classes.row} item>
-          <div className={classes.description}>{item.description}</div>
+            <div className={classes.description}>{item.description}</div>
           </Grid>
           <Grid item>
             <div>
@@ -131,11 +144,7 @@ export default function Cocktail({ item, showModal, setShowModal }) {
             <div>
               <h2 className={classes.hashtags}>Steps</h2>
               <span>-----------------------</span>
-              <List
-                component="ol"
-                className={classes.root}
-                aria-label="steps"
-              >
+              <List component="ol" className={classes.root} aria-label="steps">
                 {item.steps.map((i, index) => (
                   <ListItem>
                     <ListItemIcon>
