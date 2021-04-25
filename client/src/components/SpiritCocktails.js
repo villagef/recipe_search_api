@@ -6,6 +6,7 @@ import { CircularProgress, Grid } from "@material-ui/core";
 
 import ImageCard from "./ImageCard";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "50vh",
@@ -33,6 +34,7 @@ export default function SpiritCocktails() {
   const { isLoading, isUpdating, error, data } = UseFetchData();
   const [topCocktails, setTopCocktails] = useState([]);
 
+
   useEffect(() => {
     if (!isLoading && !isUpdating) {
       const classics = data.filter((d) => d.type === "classic");
@@ -43,6 +45,8 @@ export default function SpiritCocktails() {
   const classes = useStyles();
 
   console.log(data);
+
+
 
   return (
     <>
@@ -56,12 +60,12 @@ export default function SpiritCocktails() {
           </Grid>
         ) : (
           topCocktails.map((d) => (
-            <Grid item>
-              <ImageCard key={d.id} data={d} />
+            <Grid item key={d.id}>
+              <ImageCard data={d}/>
             </Grid>
           ))
         )}
-      </Grid>
+      </Grid>  
     </>
   );
 }

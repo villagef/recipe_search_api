@@ -3,6 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 
+import { Link } from 'react-router-dom';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -66,10 +69,14 @@ export default function Header({handleAddClick}) {
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
+          <Link to="/">
           <h1 className={classes.appbarTitle}>
             Scandale<span className={classes.colorText}>Cocktails</span>
           </h1>
-          <Button className={classes.login} onClick={handleAddClick}>Login</Button>
+          </Link>
+          <Link to='/dashboard'>
+          <Button className={classes.login}>Account</Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

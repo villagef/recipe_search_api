@@ -1,16 +1,18 @@
-import React from "react";
+import {useState, useEffect} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import {Typography, CardMedia, CardContent, Card} from "@material-ui/core";
+import { Typography, CardMedia, CardContent, Card } from "@material-ui/core";
+import Cocktail from "./Cocktail";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: 420,
     background: "rgba(0,0,0,0.5)",
     margin: "20px",
     cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
-      width: '90vw'
-    }
+      width: "90vw",
+      maxWidth: "420px"
+    },
   },
   media: {
     height: "420px",
@@ -43,31 +45,47 @@ const useStyles = makeStyles(theme => ({
 export default function ImageCard({ data }) {
   const classes = useStyles();
 
+  const [currentCocktail, setCurrentCocktail] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleModal = (e) => {
+    setShowModal(true);
+    setCurrentCocktail(data);
+  };
+
   return (
-    <Card className={classes.root}>
-      <CardMedia
-        className={classes.media}
-        image={data.image}
-        title={data.name}
-      />
-      <CardContent>
-        <Typography
-          gutterTop
-          variant="h7"
-          component="h3"
-          className={classes.spirit}
-        >
-          #{data.mainSpirit} #{data.prepStyle}
-        </Typography>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h1"
-          className={classes.title}
-        >
-          {data.name}
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      <Card
+        className={classes.root}
+        accessKey={data.id}
+        id={data.id}
+        onClick={handleModal}
+      >
+        <CardMedia
+          className={classes.media}
+          image={data.image}
+          title={data.name}
+        />
+        <CardContent>
+          <Typography
+            gutterTop
+            variant="h7"
+            component="h3"
+            className={classes.spirit}
+          >
+            #{data.mainSpirit} #{data.prepStyle}
+          </Typography>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h1"
+            className={classes.title}
+          >
+            {data.name}
+          </Typography>
+        </CardContent>
+      </Card>
+      {showModal && <Cocktail item={currentCocktail} showModal={showModal} setShowModal={setShowModal} />}
+    </>
   );
 }

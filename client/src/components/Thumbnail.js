@@ -11,10 +11,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundImage:
       "url(http://steaque.themezinho.net/wp-content/uploads/2020/07/slide03.jpg)",
-    backgroundSize: "fit",
+    backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     [theme.breakpoints.down("sm")]: {
+      backgroundSize: "fit",
       backgroundPosition: "bottom right"
     }
   },
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     [theme.breakpoints.down("sm")]: {
       fontSize: 'calc(24px + 40 * ((70vw + 53vh) - 600px) / 820)',
+      marginTop: 100
     }
   },
   button: {

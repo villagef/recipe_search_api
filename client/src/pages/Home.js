@@ -1,3 +1,5 @@
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
 import {
   UseFetchData,
   UseAddData,
@@ -5,7 +7,6 @@ import {
 } from "../context/GlobalState";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { CssBaseline } from "@material-ui/core";
 import Header from "../components/Header";
 import Thumbnail from "../components/Thumbnail";
 import TopCocktails from "../components/SpiritCocktails";
