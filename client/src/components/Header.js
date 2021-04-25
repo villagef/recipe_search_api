@@ -20,10 +20,16 @@ const useStyles = makeStyles((theme) => ({
     margin: '0 auto',
     display: "flex",
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    [theme.breakpoints.down("sm")]: {
+      width: '100%',
+    }
   },
   appbarTitle: {
-    fontSize: 40
+    fontSize: 40,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '1.6rem'
+    }
   },
   icon: {
     color: '#fff',
@@ -47,7 +53,11 @@ const useStyles = makeStyles((theme) => ({
     color: 'white',
     fontSize: '1.2rem',
     width: 120,
-    borderRadius: 20
+    borderRadius: 20,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '1rem',
+      width: 80,
+    }
   }
 }));
 export default function Header({handleAddClick}) {

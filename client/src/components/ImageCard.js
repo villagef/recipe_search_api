@@ -2,12 +2,15 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {Typography, CardMedia, CardContent, Card} from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     width: 420,
     background: "rgba(0,0,0,0.5)",
     margin: "20px",
     cursor: "pointer",
+    [theme.breakpoints.down("sm")]: {
+      width: '90vw'
+    }
   },
   media: {
     height: "420px",
@@ -35,7 +38,7 @@ const useStyles = makeStyles({
     fontSize: "1.1rem",
     color: "#ddd",
   },
-});
+}));
 
 export default function ImageCard({ data }) {
   const classes = useStyles();

@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     fontSize: "1.4rem",
     margin: '0 auto',
-    marginTop: 20
+    marginTop: 20,
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '0.9rem'
+    }
   }
 }));
 
@@ -49,7 +52,7 @@ export default function SpiritCocktails() {
         </Grid>
         {isLoading ? (
           <Grid item>
-            {/* <CircularProgress /> */}
+            <CircularProgress />
           </Grid>
         ) : (
           topCocktails.map((d) => (

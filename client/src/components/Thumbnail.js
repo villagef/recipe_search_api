@@ -11,20 +11,26 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     backgroundImage:
       "url(http://steaque.themezinho.net/wp-content/uploads/2020/07/slide03.jpg)",
-    backgroundSize: "cover",
+    backgroundSize: "fit",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
-    [theme.breakpoints.down("md")]: {
-      flexDirection: "column",
-    },
+    [theme.breakpoints.down("sm")]: {
+      backgroundPosition: "bottom right"
+    }
   },
   titleBox: {
     width: "55vw",
     justify: "left",
+    [theme.breakpoints.down("sm")]: {
+      width: "100vw",
+    }
   },
   title: {
     fontSize: 'calc(20px + 40 * ((53vw + 53vh) - 600px) / 820)',
     color: "white",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: 'calc(24px + 40 * ((70vw + 53vh) - 600px) / 820)',
+    }
   },
   button: {
     width: 300,
