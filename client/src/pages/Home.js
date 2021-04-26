@@ -59,17 +59,15 @@ export default function Home() {
     UseAddData(newCocktail);
   };
 
-  const handleDeleteClick = (e) => {
-    UseDeleteData(e.target.id);
-  };
-
   console.log(data);
 
   return (
     <div className={classes.root}>
       <Header handleAddClick={handleAddClick}/>
       <Thumbnail />
-      <TopCocktails />
+      {
+        !isLoading && <TopCocktails />
+      }
       <Footer />
     </div>
   );

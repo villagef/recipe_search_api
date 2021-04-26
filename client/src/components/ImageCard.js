@@ -68,15 +68,13 @@ export default function ImageCard({ data }) {
         />
         <CardContent>
           <Typography
-            gutterTop
-            variant="h7"
+            variant="h6"
             component="h3"
             className={classes.spirit}
           >
             #{data.mainSpirit} #{data.prepStyle}
           </Typography>
           <Typography
-            gutterBottom
             variant="h5"
             component="h1"
             className={classes.title}
