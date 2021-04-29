@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ListElement({ row }) {
   const classes = useStyles();
+
   async function handleDeleteClick(item) {
     await UseDeleteData(item);
   }

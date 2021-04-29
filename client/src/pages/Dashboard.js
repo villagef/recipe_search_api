@@ -52,6 +52,13 @@ export default function Dashboard() {
   const { isLoading, isUpdating, error, data } = UseFetchData();
   const [cocktails, setCocktails] = useState([]);
 
+  useEffect(() => {
+    setCocktails(data);
+  }, [data]);
+
+  console.log(cocktails);
+  
+
   return (
     <>
       <div className={classes.root}>
@@ -105,49 +112,14 @@ export default function Dashboard() {
             <Grid item xs>
               <PaginatedTable
                 style={{ gridArea: "main" }}
-                data={data}
+                data={cocktails}
+                setData={setCocktails}
                 isLoading={isLoading}
               />
             </Grid>
           </Grid>
         </Container>
       </div>
-      {/* <Container
-      className={classes.mainContainer}
-      component={Paper}
-      maxWidth="xl"
-    >
-        {!isLoading && (
-          <KPI style={{gridArea: "content1"}} name="Cocktailss" color="#4285f4" totalCocktails={data.length} />
-        )}
-        {!isLoading && (
-          <KPI
-          style={{gridArea: "content2"}}
-            name="Classics"
-            color="#fb4c2f"
-            totalCocktails={data.filter((e) => e.type === "classic").length}
-          />
-        )}
-        {!isLoading && (
-          <KPI
-            style={{gridArea: "content3"}}
-            name="Tropicals"
-            color="#34a853"
-            totalCocktails={data.filter((e) => e.type === "tropical").length}
-          />
-        )}
-        {!isLoading && (
-          <KPI
-            style={{gridArea: "content4"}}
-            name="Modern Classics"
-            color="#fbbc04"
-            totalCocktails={
-              data.filter((e) => e.type === "modern classic").length
-            }
-          />
-        )}
-        <PaginatedTable style={{gridArea: "main"}}  data={data} isLoading={isLoading} />
-    </Container> */}
     </>
   );
 }

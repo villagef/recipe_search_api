@@ -14,6 +14,7 @@ import {
 
 import SearchInput from "./SearchInput";
 import ListElement from "./ListElement";
+import CocktailForm from "./CocktailForm";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -60,14 +61,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaginatedTable({ isLoading, data }) {
+export default function PaginatedTable({ isLoading, data, setData }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const [add, setAdd] = useState(false);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
 
+  const handleAdd = () => {
+    setAdd(true);
+  }
+
+  console.log(add);
+  
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -77,7 +85,7 @@ export default function PaginatedTable({ isLoading, data }) {
 
   return (
     <>
-      {!isLoading && (
+      {data && (
         <Grid container component={Paper} className={classes.mainContainer}>
           <Grid className={classes.header} item>
             <Grid item>
@@ -85,7 +93,7 @@ export default function PaginatedTable({ isLoading, data }) {
             </Grid>
             <Grid className={classes.subheader} item>
               <SearchInput />
-              <Button variant="contained" color="primary">
+              <Button variant="contained" color="primary" onClick={handleAdd}>
                 Add NEW
               </Button>
             </Grid>
@@ -116,6 +124,7 @@ export default function PaginatedTable({ isLoading, data }) {
           </Grid>
         </Grid>
       )}
+      {add === true && <CocktailForm add={add} setAdd={setAdd}  />}
     </>
   );
 }
