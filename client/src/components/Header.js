@@ -1,81 +1,80 @@
-import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, IconButton, Toolbar, Collapse } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
+import React, { useEffect, useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { AppBar, IconButton, Toolbar, Collapse } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    position: 'fixed',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '80px',
-    fontFamily: 'Nunito',
+    display: "flex",
+    position: "fixed",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "80px",
+    fontFamily: "Nunito",
   },
   appbar: {
-    background: 'rgba(0,0,0, 0.5)',
+    background: "rgba(0,0,0, 0.7)",
   },
   appbarWrapper: {
-    width: '80%',
-    margin: '0 auto',
+    width: "80%",
+    margin: "0 auto",
     display: "flex",
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    justifyContent: "space-between",
+    alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      width: '100%',
-    }
+      width: "100%",
+    },
   },
   appbarTitle: {
     fontSize: 40,
     [theme.breakpoints.down("sm")]: {
-      fontSize: '1.6rem'
-    }
+      fontSize: "1.6rem",
+    },
   },
   icon: {
-    color: '#fff',
-    fontSize: '2rem',
+    color: "#fff",
+    fontSize: "2rem",
   },
   colorText: {
-    color: '#d59f2f',
+    color: "#d59f2f",
   },
   container: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   title: {
-    color: '#fff',
-    fontSize: '4.5rem',
+    color: "#fff",
+    fontSize: "4.5rem",
   },
   goDown: {
-    color: '#5AFF3D',
-    fontSize: '4rem',
+    color: "#5AFF3D",
+    fontSize: "4rem",
   },
   login: {
-    color: 'white',
-    fontSize: '1.2rem',
+    color: "white",
+    fontSize: "1.2rem",
     width: 120,
     borderRadius: 20,
     [theme.breakpoints.down("sm")]: {
-      fontSize: '1rem',
+      fontSize: "1rem",
       width: 80,
-    }
-  }
+    },
+  },
 }));
-export default function Header({handleAddClick}) {
+export default function Header({ handleAddClick }) {
   const classes = useStyles();
   return (
     <div className={classes.root} id="header">
       <AppBar className={classes.appbar} elevation={0}>
         <Toolbar className={classes.appbarWrapper}>
           <Link to="/">
-          <h1 className={classes.appbarTitle}>
-            Scandale<span className={classes.colorText}>Cocktails</span>
-          </h1>
+            <h1 className={classes.appbarTitle}>
+              Scandale<span className={classes.colorText}>Cocktails</span>
+            </h1>
           </Link>
-          <Link to='/dashboard'>
-          <Button className={classes.login}>Account</Button>
+          <Link to="/dashboard">
+            <Button className={classes.login}>Account</Button>
           </Link>
         </Toolbar>
       </AppBar>

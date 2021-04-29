@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     left: "50%",
     transform: "translate(-50%, -50%)",
     width: "90vw",
+    maxWidth: "1200px",
     height: "90vh",
     overflowY: "scroll",
     backgroundColor: theme.palette.background.paper,
@@ -39,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px 0",
     borderRadius: 10,
     maxWidth: 420,
+    boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
     [theme.breakpoints.up("sm")]: {
       height: 420,
       marginLeft: 50,

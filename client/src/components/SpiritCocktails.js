@@ -55,7 +55,7 @@ export default function SpiritCocktails() {
             <CircularProgress />
           </Grid>
         ) : (
-          topCocktails.map((d) => (
+          data.map((d) => (
             <Grid item key={d.id}>
               <ImageCard data={d} />
             </Grid>
