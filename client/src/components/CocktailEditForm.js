@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CocktailForm({ add, setAdd }) {
+export default function CocktailEditForm({ row, setEdit }) {
   const { cocktails } = useContext(GlobalContext);
   const classes = useStyles();
   const {
@@ -71,24 +71,49 @@ export default function CocktailForm({ add, setAdd }) {
   } = useForm();
   
   const onSubmit = async (data) => {
-    const ratings = [0];
-    const today = new Date()
+    const modified = new Date()
     .toISOString()
     .split("T")[0]
     .split("-")
     .reverse()
     .join(".");
-    const id = uuidv4();
-    const newCocktail = { ...data, ratings, modified: today, id};
+    const id = row.id;
+    const author = data.author ? data.author : row.author;
+    const description = data.description ? data.description : row.description;
+    const image = data.image ? data.image : row.image;
+    const ingridients = data.ingridients ? data.ingridients : row.ingridients;
+    const mainSpirit = data.mainSpirit ? data.mainSpirit : row.mainSpirit;
+    const name = data.name ? data.name : row.name;
+    const prepStyle = data.prepStyle ? data.prepStyle : row.prepStyle;
+    const steps = data.steps ? data.steps : row.steps;
+    const taste = data.taste ? data.taste : row.taste;
+    const type = data.type ? data.type : row.type;
+    const ratings = data.ratings ? data.ratings : row.ratings;
 
-    await axios.post(`https://scandalecocktails.herokuapp.com/data/`, newCocktail)
+    const editedCocktail = {
+      id: id,
+      author: author,
+      description: description,
+      image: image,
+      ingridients: ingridients,
+      mainSpirit: mainSpirit,
+      name: name,
+      prepStyle: prepStyle,
+      steps: steps,
+      taste: taste,
+      type: type,
+      ratings: ratings,
+      modified: modified
+    };
+    
+    await axios.put(`https://scandalecocktails.herokuapp.com/data/${id}`, editedCocktail)
       .then(res => console.log(res))
       .catch(e => console.log(e))
-      .finally(setAdd(false))
+      .finally(setEdit(false));
   };
 
   const handleClose = () => {
-    setAdd(false);
+    setEdit(false);
   };
 
 
@@ -109,9 +134,10 @@ export default function CocktailForm({ add, setAdd }) {
               <Input
                 className={classes.row}
                 type="text"
-                placeholder="Cocktail Name"
+                placeholder={row.name}
+                onChange={handleClose}
                 {...register("name", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 30,
                 })}
@@ -121,9 +147,9 @@ export default function CocktailForm({ add, setAdd }) {
               <Input
                 className={classes.row}
                 type="text"
-                placeholder="Main Spirit"
+                placeholder={row.mainSpirit}
                 {...register("mainSpirit", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 20,
                 })}
@@ -133,9 +159,9 @@ export default function CocktailForm({ add, setAdd }) {
               <Input
                 className={classes.row}
                 type="url"
-                placeholder="Image URL"
+                placeholder={row.image}
                 {...register("image", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 200,
                 })}
@@ -145,9 +171,9 @@ export default function CocktailForm({ add, setAdd }) {
               <Input
                 className={classes.row}
                 type="text"
-                placeholder="Author"
+                placeholder={row.author}
                 {...register("author", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 30,
                 })}
@@ -162,11 +188,12 @@ export default function CocktailForm({ add, setAdd }) {
               </InputLabel>
               <Select
                 className={classes.row}
-                {...register("type", { required: true })}
+                defaultValue={row.type}
+                {...register("type", { required: false })}
               >
                 <MenuItem value="classic">classic</MenuItem>
-                <MenuItem value="modern classic"> modern classic</MenuItem>
-                <MenuItem value="tropical"> tropical</MenuItem>
+                <MenuItem value="modern classic">modern classic</MenuItem>
+                <MenuItem value="tropical">tropical</MenuItem>
               </Select>
             </Grid>
             <Grid item>
@@ -178,10 +205,11 @@ export default function CocktailForm({ add, setAdd }) {
               </InputLabel>
               <Select
                 className={classes.row}
-                {...register("prepStyle", { required: true })}
+                defaultValue={row.prepStyle}
+                {...register("prepStyle", { required: false })}
               >
                 <MenuItem value="mixed">stirred</MenuItem>
-                <MenuItem value="shaken"> shaken</MenuItem>
+                <MenuItem value="shaken">shaken</MenuItem>
               </Select>
             </Grid>
             <Grid item>
@@ -193,7 +221,8 @@ export default function CocktailForm({ add, setAdd }) {
               </InputLabel>
               <Select
                 className={classes.row}
-                {...register("taste", { required: true })}
+                defaultValue={row.taste}
+                {...register("taste", { required: false })}
               >
                 <MenuItem value="dry">dry</MenuItem>
                 <MenuItem value="semi-dry">semi-dry</MenuItem>
@@ -205,21 +234,21 @@ export default function CocktailForm({ add, setAdd }) {
               <TextareaAutosize
                 className={classes.textArea}
                 aria-label="empty textarea"
-                placeholder="Ingridients (separate by ',')"
+                placeholder={row.ingridients}
                 {...register("ingridients", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 500,
                 })}
               />
             </Grid>
-            <Grid item>
-              <TextareaAutosize
+            <Grid item >
+              <TextareaAutosize 
                 className={classes.textArea}
                 aria-label="empty textarea"
-                placeholder="Steps (separate by ',')"
+                placeholder={row.steps}
                 {...register("steps", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 500,
                 })}
@@ -229,9 +258,9 @@ export default function CocktailForm({ add, setAdd }) {
               <TextareaAutosize
                 className={classes.textArea}
                 aria-label="empty textarea"
-                placeholder="Description (max 500 signs)"
+                placeholder={row.description}
                 {...register("description", {
-                  required: true,
+                  required: false,
                   min: 2,
                   maxLength: 500,
                 })}
@@ -244,7 +273,7 @@ export default function CocktailForm({ add, setAdd }) {
                 color="primary"
                 type="submit"
               >
-                Add Cocktail
+                Update Cocktail
               </Button>
             </Grid>
           </Container>

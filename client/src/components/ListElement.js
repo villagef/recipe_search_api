@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import {
   TableCell,
@@ -7,6 +8,8 @@ import {
   Grid,
 } from "@material-ui/core";
 import axios from "axios";
+
+import CocktailEditForm from './CocktailEditForm';
 
 const useStyles = makeStyles((theme) => ({
   description: {
@@ -33,12 +36,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ListElement({ row, data, setData }) {
   const classes = useStyles();
+  const [edit, setEdit] = useState(false)
 
   async function handleDeleteClick(id) {
     await axios.delete(`https://scandalecocktails.herokuapp.com/data/${id}`);
     const newData = data.filter((d) => d.id !== id);
     console.log(newData);
     setData(newData);
+  }
+
+  const handleEditClick = () => {
+    setEdit(true)
   }
 
   return (
@@ -54,7 +62,7 @@ export default function ListElement({ row, data, setData }) {
           </Grid>
           <Grid item className={classes.buttons}>
             <ButtonGroup>
-              <Button variant="contained" color="primary">
+              <Button id={row.id} variant="contained" color="primary" onClick={() => handleEditClick(row.id)}>
                 Edit
               </Button>
               <Button
@@ -69,6 +77,9 @@ export default function ListElement({ row, data, setData }) {
           </Grid>
         </TableCell>
       </TableRow>
+      {
+        edit && <CocktailEditForm row={row} setEdit={setEdit}/>
+      }
     </>
   );
 }
