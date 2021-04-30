@@ -6,8 +6,7 @@ import {
   ButtonGroup,
   Grid,
 } from "@material-ui/core";
-
-import { UseDeleteData } from "../context/GlobalState";
+import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
   description: {
@@ -17,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     width: "100%",
     height: "50px",
-    color: 'gray',
+    color: "gray",
     [theme.breakpoints.up("sm")]: {
       display: "block",
     },
@@ -28,21 +27,24 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
   },
   buttons: {
-    marginTop: 10
-  }
+    marginTop: 10,
+  },
 }));
 
-export default function ListElement({ row }) {
+export default function ListElement({ row, data, setData }) {
   const classes = useStyles();
 
-  async function handleDeleteClick(item) {
-    await UseDeleteData(item);
+  async function handleDeleteClick(id) {
+    await axios.delete(`https://scandalecocktails.herokuapp.com/data/${id}`);
+    const newData = data.filter((d) => d.id !== id);
+    console.log(newData);
+    setData(newData);
   }
 
   return (
     <>
-      <TableRow >
-        <TableCell  scope="row">
+      <TableRow>
+        <TableCell scope="row">
           <img className={classes.image} src={row.image}></img>
         </TableCell>
         <TableCell>

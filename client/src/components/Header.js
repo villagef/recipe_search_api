@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "80px",
     fontFamily: "Nunito",
-    
+    zIndex: '2000'
   },
   appbar: {
     background: "rgba(0,0,0, 0.7)",
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-export default function Header({ handleAddClick }) {
+export default function Header() {
   const classes = useStyles();
   return (
     <div className={classes.root} id="header">

@@ -1,79 +1,61 @@
-import { useState, useEffect, createContext, useContext } from "react";
+import React, { createContext, useReducer, useState, useEffect } from "react";
+import appReducer from "./AppReducer";
 import api from "../api/data";
+
+let initialState = {
+  isLoading: true,
+};
 
 export const GlobalContext = createContext();
 
-export const GlobalProvider = (props) => {
-  const [state, dispatch] = useState({
-    isLoading: true,
-    data: null,
-    error: null,
-    isUpdating: false,
+export const GlobalProvider = ({ children }) => {
+  const [cocktails, setData] = useState(null);
+
+  const fetchData = new Promise((resolve, reject) => {
+    const response = api.get("/data");
+    response ? resolve(response) : reject(response);
   });
+
+  useEffect(() => {
+    fetchData.then((res) => setData(res.data)).catch((e) => console.log(e));
+  }, []);
+
+  initialState = { ...initialState, cocktails };
+
+  const [state, dispatch] = useReducer(appReducer, initialState);
+
+  function addCocktail(cocktail) {
+    dispatch({
+      type: "ADD_COCKTAIL",
+      payload: cocktail,
+    });
+  }
+
+  function editCocktail(cocktail) {
+    dispatch({
+      type: "EDIT_COCKTAIL",
+      payload: cocktail,
+    });
+  }
+
+  function removeCocktail(id) {
+    dispatch({
+      type: "REMOVE_COCKTAIL",
+      payload: id,
+    });
+  }
 
   return (
     <GlobalContext.Provider
       value={{
-        state,
-        dispatch,
+        cocktails: cocktails,
+        isLoading: state.isLoading,
+        addCocktail,
+        editCocktail,
+        removeCocktail,
       }}
     >
-      {props.children}
+      {children}
     </GlobalContext.Provider>
   );
-};
-
-export const UseFetchData = () => {
-  const { state, dispatch } = useContext(GlobalContext);
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
-    dispatch((prev) => {
-      if (prev.data) {
-        return {
-          ...prev,
-          isUpdating: true,
-        };
-      }
-
-      return {
-        ...prev,
-        isLoading: true,
-      };
-    });
-
-    try {
-      const response = await api.get("/data");
-      dispatch({
-        isLoading: false,
-        isUpdating: false,
-        error: null,
-        data: response.data,
-      });
-    } catch (e) {
-      dispatch({
-        isLoading: false,
-        isUpdating: false,
-        error: e,
-        data: null,
-      });
-    }
-  };
-
-  return state;
-};
-
-export const UseAddData = (item) => {
-  const addCocktail = async () => {
-    await api.post("/data", item);
-  };
-
-  return addCocktail();
-};
-
-export const UseDeleteData = async (id) => {
-  await api.delete(`/data/${id}`);
 };

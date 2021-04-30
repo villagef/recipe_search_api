@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import PaginatedTable from "../components/PaginatedTable";
 import KPI from "../components/KPI";
@@ -14,7 +14,7 @@ import {
   Container,
 } from "@material-ui/core";
 
-import { UseFetchData } from "../context/GlobalState";
+import { GlobalContext } from "../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,15 +49,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const { isLoading, isUpdating, error, data } = UseFetchData();
-  const [cocktails, setCocktails] = useState([]);
+  // const { isLoading, isUpdating, error, data } = UseFetchData();
+  const { cocktails } = useContext(GlobalContext);
+  const [upCocktails, setUpCocktails] = useState([]);
 
   useEffect(() => {
-    setCocktails(data);
-  }, [data]);
+    setUpCocktails(cocktails);
+  }, [cocktails]);
 
-  console.log(cocktails);
-  
+  console.log(upCocktails);
 
   return (
     <>
@@ -65,44 +65,45 @@ export default function Dashboard() {
         <Container>
           <Grid container spacing={4} maxWidth="sm">
             <Grid item xs>
-              {!isLoading && (
+              {upCocktails && (
                 <KPI
                   name="Cocktails"
                   color="#4285f4"
-                  totalCocktails={data.length}
+                  totalCocktails={upCocktails.length}
                 />
               )}
             </Grid>
             <Grid item xs>
-              {!isLoading && (
+              {upCocktails && (
                 <KPI
                   name="Classics"
                   color="#fb4c2f"
                   totalCocktails={
-                    data.filter((e) => e.type === "classic").length
+                    upCocktails.filter((e) => e.type === "classic").length
                   }
                 />
               )}
             </Grid>
             <Grid item xs>
-              {!isLoading && (
+              {upCocktails && (
                 <KPI
                   style={{ gridArea: "content3" }}
                   name="Tropicals"
                   color="#34a853"
                   totalCocktails={
-                    data.filter((e) => e.type === "tropical").length
+                    upCocktails.filter((e) => e.type === "tropical").length
                   }
                 />
               )}
             </Grid>
             <Grid item xs>
-              {!isLoading && (
+              {upCocktails && (
                 <KPI
                   name="Modern"
                   color="#fbbc04"
                   totalCocktails={
-                    data.filter((e) => e.type === "modern classic").length
+                    upCocktails.filter((e) => e.type === "modern classic")
+                      .length
                   }
                 />
               )}
@@ -112,9 +113,8 @@ export default function Dashboard() {
             <Grid item xs>
               <PaginatedTable
                 style={{ gridArea: "main" }}
-                data={cocktails}
-                setData={setCocktails}
-                isLoading={isLoading}
+                data={upCocktails}
+                setData={setUpCocktails}
               />
             </Grid>
           </Grid>

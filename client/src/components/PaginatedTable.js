@@ -61,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PaginatedTable({ isLoading, data, setData }) {
+export default function PaginatedTable({ data, setData }) {
   const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -73,8 +73,6 @@ export default function PaginatedTable({ isLoading, data, setData }) {
   const handleAdd = () => {
     setAdd(true);
   };
-
-  console.log(add);
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
@@ -105,7 +103,12 @@ export default function PaginatedTable({ isLoading, data, setData }) {
                   {data
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
-                      <ListElement key={row.id} row={row} />
+                      <ListElement
+                        key={row.id}
+                        row={row}
+                        data={data}
+                        setData={setData}
+                      />
                     ))}
                 </TableBody>
               </Table>

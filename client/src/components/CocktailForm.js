@@ -15,7 +15,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    width: "100%",
+    // width: "100%",
     height: "100vh",
     overflowY: "scroll",
     padding: "0 20px",
@@ -35,10 +35,14 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px",
   },
   formWrapper: {
-    width: "90vw",
+    // width: "90vw",
     maxWidth: "500px",
     padding: "30px",
-    margin: "30px 0",
+    margin: "30px auto",
+  },
+  form: {
+    maxWidth: "500px",
+    margin: "0 auto",
   },
   textArea: {
     padding: "10px",
@@ -86,7 +90,7 @@ export default function CocktailForm({ add, setAdd }) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Container component={Paper} className={classes.formWrapper}>
             <Grid item>
               <Input

@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { UseFetchData } from "../context/GlobalState";
-
+import {GlobalContext} from "../context/GlobalState";
 import { makeStyles } from "@material-ui/core/styles";
 import { CircularProgress, Grid } from "@material-ui/core";
-
 import ImageCard from "./ImageCard";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,32 +29,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SpiritCocktails() {
-  const { isLoading, isUpdating, error, data } = UseFetchData();
-  const [topCocktails, setTopCocktails] = useState([]);
-
-  useEffect(() => {
-    if (!isLoading && !isUpdating) {
-      const classics = data.filter((d) => d.type === "classic");
-      setTopCocktails(classics.splice(0, 10));
-    }
-  }, []);
+  // const { isLoading, isUpdating, error, data } = UseFetchData();
+  const {cocktails} = useContext(GlobalContext);
 
   const classes = useStyles();
-
-  console.log(data);
-
+  
   return (
     <>
       <Grid container spacing={5} className={classes.root}>
         <Grid className={classes.title} item>
           <h1>The Most Popular Cocktails</h1>
         </Grid>
-        {isLoading ? (
+        {!cocktails ? (
           <Grid item>
             <CircularProgress />
           </Grid>
         ) : (
-          data.map((d) => (
+          cocktails.map((d) => (
             <Grid item key={d.id}>
               <ImageCard data={d} />
             </Grid>

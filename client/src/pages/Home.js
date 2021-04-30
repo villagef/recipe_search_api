@@ -1,10 +1,6 @@
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-import {
-  UseFetchData,
-  UseAddData,
-  UseDeleteData,
-} from "../context/GlobalState";
+import {useContext} from 'react'
+import {GlobalContext} from "../context/GlobalState";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Header from "../components/Header";
@@ -24,21 +20,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-  const { isLoading, isUpdating, error, data } = UseFetchData();
+  // const { isLoading, isUpdating, error, data } = UseFetchData();
+  const {cocktails, isLoading} = useContext(GlobalContext)
 
+  console.log(isLoading);
+  
 
   const handleAddClick = () => {
     
   };
 
-  console.log(data);
+  console.log(cocktails);
 
   return (
     <div className={classes.root}>
       <Header handleAddClick={handleAddClick}/>
       <Thumbnail />
       {
-        !isLoading && <TopCocktails />
+        cocktails && <TopCocktails />
       }
       <Footer />
     </div>
