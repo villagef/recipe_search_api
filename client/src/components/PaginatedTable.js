@@ -72,10 +72,10 @@ export default function PaginatedTable({ isLoading, data, setData }) {
 
   const handleAdd = () => {
     setAdd(true);
-  }
+  };
 
   console.log(add);
-  
+
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
@@ -124,7 +124,7 @@ export default function PaginatedTable({ isLoading, data, setData }) {
           </Grid>
         </Grid>
       )}
-      {add === true && <CocktailForm add={add} setAdd={setAdd}  />}
+      {add === true && <CocktailForm add={add} setAdd={setAdd} />}
     </>
   );
 }

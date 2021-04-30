@@ -99,7 +99,7 @@ export default function Dashboard() {
             <Grid item xs>
               {!isLoading && (
                 <KPI
-                  name="Tropicals"
+                  name="Modern"
                   color="#fbbc04"
                   totalCocktails={
                     data.filter((e) => e.type === "modern classic").length
