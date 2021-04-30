@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
-import StarIcon from "@material-ui/icons/Star";
 import Rating from "@material-ui/lab/Rating";
 import {
   Modal,
@@ -12,7 +10,6 @@ import {
   ListItemIcon,
   ListItemText,
   Box,
-  Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -94,12 +91,13 @@ export default function Cocktail({ item, showModal, setShowModal }) {
   };
 
   return (
-    <div>
+    <>
       <Modal
         open={showModal}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        style={{zIndex: '3000'}}
       >
         <Grid container className={classes.paper}>
           <Grid className={classes.first} item>
@@ -161,6 +159,6 @@ export default function Cocktail({ item, showModal, setShowModal }) {
           </Grid>
         </Grid>
       </Modal>
-    </div>
+    </>
   );
 }

@@ -102,8 +102,7 @@ export default function Dashboard() {
                   name="Modern"
                   color="#fbbc04"
                   totalCocktails={
-                    upCocktails.filter((e) => e.type === "modern classic")
-                      .length
+                    upCocktails.filter((e) => e.type === "modern classic").length
                   }
                 />
               )}

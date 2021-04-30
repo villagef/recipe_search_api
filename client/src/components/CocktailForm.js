@@ -1,5 +1,9 @@
+import {useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
+import { GlobalContext } from "../context/GlobalState";
+import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Paper,
   Grid,
@@ -15,11 +19,11 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
-    // width: "100%",
     height: "100vh",
     overflowY: "scroll",
     padding: "0 20px",
     boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
+    zIndex: '3000'
   },
   list: {
     width: "100%",
@@ -57,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function CocktailForm({ add, setAdd }) {
+  const { cocktails } = useContext(GlobalContext);
   const classes = useStyles();
   const {
     register,
@@ -64,22 +69,27 @@ export default function CocktailForm({ add, setAdd }) {
     watch,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = (data) => {
+  
+  const onSubmit = async (data) => {
     const ratings = [0];
-    const newCocktail = { ...data, ratings };
-    console.log(newCocktail);
-  };
-  const handleClose = () => {
-    setAdd(false);
-  };
-
-  const today = new Date()
+    const today = new Date()
     .toISOString()
     .split("T")[0]
     .split("-")
     .reverse()
     .join(".");
+    const id = uuidv4();
+    const newCocktail = { ...data, ratings, modified: today, id};
+
+    await axios.post(`https://scandalecocktails.herokuapp.com/data/`, newCocktail)
+      .then(res => console.log(res))
+      .catch(e => console.log(e))
+  };
+  const handleClose = () => {
+    setAdd(false);
+  };
+
+
 
   return (
     <>
@@ -89,6 +99,7 @@ export default function CocktailForm({ add, setAdd }) {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
+        // style={{zIndex: '3000'}}
       >
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Container component={Paper} className={classes.formWrapper}>
@@ -221,16 +232,6 @@ export default function CocktailForm({ add, setAdd }) {
                   required: true,
                   min: 2,
                   maxLength: 500,
-                })}
-              />
-            </Grid>
-            <Grid item>
-              <Input
-                type="text"
-                value={today}
-                disabled
-                {...register("modified", {
-                  required: false,
                 })}
               />
             </Grid>
