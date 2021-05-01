@@ -1,7 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import {Button, Container, Grid } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-
+import { Container, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -16,23 +14,23 @@ const useStyles = makeStyles((theme) => ({
     backgroundRepeat: "no-repeat",
     [theme.breakpoints.down("sm")]: {
       backgroundSize: "fit",
-      backgroundPosition: "bottom right"
-    }
+      backgroundPosition: "bottom right",
+    },
   },
   titleBox: {
     width: "55vw",
     justify: "left",
     [theme.breakpoints.down("sm")]: {
       width: "100vw",
-    }
+    },
   },
   title: {
-    fontSize: 'calc(20px + 40 * ((53vw + 53vh) - 600px) / 820)',
+    fontSize: "calc(20px + 40 * ((53vw + 53vh) - 600px) / 820)",
     color: "white",
     [theme.breakpoints.down("sm")]: {
-      fontSize: 'calc(24px + 40 * ((70vw + 53vh) - 600px) / 820)',
-      marginTop: 100
-    }
+      fontSize: "calc(24px + 40 * ((70vw + 53vh) - 600px) / 820)",
+      marginTop: 100,
+    },
   },
   button: {
     width: 300,
@@ -43,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Thumbnail() {
   const classes = useStyles();
+
   return (
     <>
       <Container className={classes.root} maxWidth="xxl">
@@ -52,16 +51,7 @@ export default function Thumbnail() {
               Find Your Favourite Cocktails and check the recipe
             </h1>
           </Grid>
-          <Grid className={classes.titleBox} item>
-          <Button
-              variant="contained"
-              size="large"
-              className={classes.button}
-              startIcon={<SearchIcon />}
-            >
-              Search
-            </Button>
-          </Grid>
+          <Grid className={classes.titleBox} item></Grid>
         </Grid>
       </Container>
     </>

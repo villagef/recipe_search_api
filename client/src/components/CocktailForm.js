@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CocktailForm({ add, setAdd }) {
+export default function CocktailForm({ add, setAdd, data, setData }) {
   const { cocktails } = useContext(GlobalContext);
   const classes = useStyles();
   const {

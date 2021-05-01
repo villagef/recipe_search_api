@@ -78,7 +78,7 @@ export default function ListElement({ row, data, setData }) {
         </TableCell>
       </TableRow>
       {
-        edit && <CocktailEditForm row={row} setEdit={setEdit}/>
+        edit && <CocktailEditForm row={row} setEdit={setEdit} data={data} setData={setData}/>
       }
     </>
   );

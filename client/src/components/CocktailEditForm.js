@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
 import { GlobalContext } from "../context/GlobalState";
 import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
 import {
   Paper,
   Grid,
@@ -60,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CocktailEditForm({ row, setEdit }) {
+export default function CocktailEditForm({ row, setEdit, data, setData }) {
   const { cocktails } = useContext(GlobalContext);
   const classes = useStyles();
   const {
@@ -110,13 +109,12 @@ export default function CocktailEditForm({ row, setEdit }) {
       .then(res => console.log(res))
       .catch(e => console.log(e))
       .finally(setEdit(false));
+      
   };
 
   const handleClose = () => {
     setEdit(false);
   };
-
-
 
   return (
     <>

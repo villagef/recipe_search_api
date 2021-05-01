@@ -9,7 +9,6 @@ import {
   Paper,
   Grid,
   Button,
-  Container,
 } from "@material-ui/core";
 
 import SearchInput from "./SearchInput";
@@ -19,8 +18,6 @@ import CocktailForm from "./CocktailForm";
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     width: "100%",
-    // height: "100vh",
-    // overflowY: "scroll",
     margin: "10px auto",
     padding: "0 20px",
     boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
@@ -66,6 +63,7 @@ export default function PaginatedTable({ data, setData }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [add, setAdd] = useState(false);
+  const [updatedList, setUpdatedList] = useState(data);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -79,7 +77,20 @@ export default function PaginatedTable({ data, setData }) {
     setPage(0);
   };
 
-  console.log(data);
+  const handleSearch = (value) => {
+    if (value) {
+      setUpdatedList(
+        data.filter((cocktail) => {
+          return Object.values(cocktail)
+            .join(" ")
+            .toLowerCase()
+            .includes(value.toLowerCase());
+        })
+      );
+    } else {
+      setUpdatedList(data);
+    }
+  };
 
   return (
     <>
@@ -90,7 +101,7 @@ export default function PaginatedTable({ data, setData }) {
               <h1>Recent Cocktails</h1>
             </Grid>
             <Grid className={classes.subheader} item>
-              <SearchInput />
+              <SearchInput handleSearch={handleSearch} />
               <Button variant="contained" color="primary" onClick={handleAdd}>
                 Add NEW
               </Button>
@@ -100,7 +111,7 @@ export default function PaginatedTable({ data, setData }) {
             <TableContainer className={classes.list}>
               <Table className={classes.table} aria-label="simple table">
                 <TableBody>
-                  {data
+                  {updatedList
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => (
                       <ListElement
@@ -127,7 +138,9 @@ export default function PaginatedTable({ data, setData }) {
           </Grid>
         </Grid>
       )}
-      {add === true && <CocktailForm add={add} setAdd={setAdd} />}
+      {add === true && (
+        <CocktailForm add={add} setAdd={setAdd} data={data} setData={setData} />
+      )}
     </>
   );
 }
