@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "20px",
     maxWidth: "100%",
     [theme.breakpoints.up("sm")]: {
-      padding: "30px 30px 0 0",
+      padding: "30px",
     },
   },
   h2: {
@@ -97,7 +97,7 @@ export default function Cocktail({ item, showModal, setShowModal }) {
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-        style={{zIndex: '3000'}}
+        style={{ zIndex: "3000" }}
       >
         <Grid container className={classes.paper}>
           <Grid className={classes.first} item>
@@ -109,7 +109,12 @@ export default function Cocktail({ item, showModal, setShowModal }) {
               Written by {item.author} | Updated {item.modified}
             </h6>
             <Box component="fieldset" mb={3} borderColor="transparent">
-              <Rating style={{ color: "#d59f2f", marginTop: "10px" }} name="read-only" value={handleRatings(item.ratings)} readOnly />
+              <Rating
+                style={{ color: "#d59f2f", marginTop: "10px" }}
+                name="read-only"
+                value={handleRatings(item.ratings)}
+                readOnly
+              />
             </Box>
           </Grid>
           <Grid className={classes.row} item>
@@ -131,7 +136,7 @@ export default function Cocktail({ item, showModal, setShowModal }) {
                 className={classes.root}
                 aria-label="ingridients"
               >
-                {item.ingridients.map((i) => (
+                {item.ingridients.split(",").map((i) => (
                   <ListItem>
                     <ListItemIcon>
                       <ArrowRightAltIcon />
@@ -145,7 +150,7 @@ export default function Cocktail({ item, showModal, setShowModal }) {
               <h2 className={classes.hashtags}>Steps</h2>
               <span>-----------------------</span>
               <List component="ol" className={classes.root} aria-label="steps">
-                {item.steps.map((i, index) => (
+                {item.steps.split(",").map((i, index) => (
                   <ListItem>
                     <ListItemIcon>
                       {++index}

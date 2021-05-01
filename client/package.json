@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "website",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -24,6 +24,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "deploy": "react-scripts deploy",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

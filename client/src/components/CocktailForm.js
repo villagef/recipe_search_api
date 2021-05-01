@@ -1,9 +1,7 @@
-import {useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
-import { GlobalContext } from "../context/GlobalState";
-import axios from 'axios';
-import { v4 as uuidv4 } from 'uuid';
+import axios from "axios";
+import { v4 as uuidv4 } from "uuid";
 import {
   Paper,
   Grid,
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     padding: "0 20px",
     boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
-    zIndex: '3000'
+    zIndex: "3000",
   },
   list: {
     width: "100%",
@@ -39,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px",
   },
   formWrapper: {
-    // width: "90vw",
     maxWidth: "500px",
     padding: "30px",
     margin: "30px auto",
@@ -60,8 +57,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CocktailForm({ add, setAdd, data, setData }) {
-  const { cocktails } = useContext(GlobalContext);
+export default function CocktailForm({ setAdd }) {
   const classes = useStyles();
   const {
     register,
@@ -69,29 +65,28 @@ export default function CocktailForm({ add, setAdd, data, setData }) {
     watch,
     formState: { errors },
   } = useForm();
-  
+
   const onSubmit = async (data) => {
     const ratings = [0];
     const today = new Date()
-    .toISOString()
-    .split("T")[0]
-    .split("-")
-    .reverse()
-    .join(".");
+      .toISOString()
+      .split("T")[0]
+      .split("-")
+      .reverse()
+      .join(".");
     const id = uuidv4();
-    const newCocktail = { ...data, ratings, modified: today, id};
+    const newCocktail = { ...data, ratings, modified: today, id };
 
-    await axios.post(`https://scandalecocktails.herokuapp.com/data/`, newCocktail)
-      .then(res => console.log(res))
-      .catch(e => console.log(e))
-      .finally(setAdd(false))
+    await axios
+      .post(`https://scandalecocktails.herokuapp.com/data/`, newCocktail)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e))
+      .finally(setAdd(false));
   };
 
   const handleClose = () => {
     setAdd(false);
   };
-
-
 
   return (
     <>

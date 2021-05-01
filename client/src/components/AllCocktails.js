@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SpiritCocktails() {
+export default function AllCocktails() {
   const { cocktails } = useContext(GlobalContext);
   const classes = useStyles();
   const [updatedList, setUpdatedList] = useState(cocktails);

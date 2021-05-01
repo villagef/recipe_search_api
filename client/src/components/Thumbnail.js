@@ -2,6 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid } from "@material-ui/core";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import IconButton from "@material-ui/core/IconButton";
+import backgroundImg from '../image/cocktailBackground.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,8 +10,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    backgroundImage:
-      "url(http://steaque.themezinho.net/wp-content/uploads/2020/07/slide03.jpg)",
+    backgroundImage: `url(${backgroundImg})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",

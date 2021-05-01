@@ -1,11 +1,10 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {useContext} from 'react'
 import {GlobalContext} from "../context/GlobalState";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Header from "../components/Header";
 import Thumbnail from "../components/Thumbnail";
-import TopCocktails from "../components/SpiritCocktails";
+import AllCocktails from "../components/AllCocktails";
 import Footer from "../components/Footer";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,24 +19,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-  // const { isLoading, isUpdating, error, data } = UseFetchData();
-  const {cocktails, isLoading} = useContext(GlobalContext)
-
-  console.log(isLoading);
-  
-
-  const handleAddClick = () => {
-    
-  };
-
-  console.log(cocktails);
+  const {cocktails} = useContext(GlobalContext)
 
   return (
     <div className={classes.root}>
-      <Header handleAddClick={handleAddClick}/>
+      <Header/>
       <Thumbnail />
       {
-        cocktails && <TopCocktails />
+        cocktails && <AllCocktails />
       }
       <Footer />
     </div>

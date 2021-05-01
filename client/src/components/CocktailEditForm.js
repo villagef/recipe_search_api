@@ -1,8 +1,6 @@
-import {useContext } from 'react'
 import { useForm } from "react-hook-form";
 import { makeStyles } from "@material-ui/core/styles";
-import { GlobalContext } from "../context/GlobalState";
-import axios from 'axios';
+import axios from "axios";
 import {
   Paper,
   Grid,
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     overflowY: "scroll",
     padding: "0 20px",
     boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
-    zIndex: '3000'
+    zIndex: "3000",
   },
   list: {
     width: "100%",
@@ -38,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px",
   },
   formWrapper: {
-    // width: "90vw",
     maxWidth: "500px",
     padding: "30px",
     margin: "30px auto",
@@ -59,8 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CocktailEditForm({ row, setEdit, data, setData }) {
-  const { cocktails } = useContext(GlobalContext);
+export default function CocktailEditForm({ row, setEdit }) {
   const classes = useStyles();
   const {
     register,
@@ -68,14 +64,14 @@ export default function CocktailEditForm({ row, setEdit, data, setData }) {
     watch,
     formState: { errors },
   } = useForm();
-  
+
   const onSubmit = async (data) => {
     const modified = new Date()
-    .toISOString()
-    .split("T")[0]
-    .split("-")
-    .reverse()
-    .join(".");
+      .toISOString()
+      .split("T")[0]
+      .split("-")
+      .reverse()
+      .join(".");
     const id = row.id;
     const author = data.author ? data.author : row.author;
     const description = data.description ? data.description : row.description;
@@ -102,14 +98,14 @@ export default function CocktailEditForm({ row, setEdit, data, setData }) {
       taste: taste,
       type: type,
       ratings: ratings,
-      modified: modified
+      modified: modified,
     };
-    
-    await axios.put(`https://scandalecocktails.herokuapp.com/data/${id}`, editedCocktail)
-      .then(res => console.log(res))
-      .catch(e => console.log(e))
+
+    await axios
+      .put(`https://scandalecocktails.herokuapp.com/data/${id}`, editedCocktail)
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e))
       .finally(setEdit(false));
-      
   };
 
   const handleClose = () => {
@@ -240,8 +236,8 @@ export default function CocktailEditForm({ row, setEdit, data, setData }) {
                 })}
               />
             </Grid>
-            <Grid item >
-              <TextareaAutosize 
+            <Grid item>
+              <TextareaAutosize
                 className={classes.textArea}
                 aria-label="empty textarea"
                 placeholder={row.steps}

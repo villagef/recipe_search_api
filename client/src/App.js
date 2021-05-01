@@ -2,11 +2,11 @@ import "./App.css";
 import Home from "./pages/Home";
 import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/">
       <div className="App">
         <Header />
         <div className="content">
@@ -14,7 +14,7 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/dashboard">
+            <Route exact path="/dashboard">
               <Dashboard />
             </Route>
           </Switch>
