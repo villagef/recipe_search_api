@@ -2,9 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import SearchBar from "material-ui-search-bar";
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
-  },
   search: {
     width: "90%",
     maxWidth: "460px",
@@ -17,12 +14,11 @@ export default function SearchInput({ handleSearch }) {
   const classes = useStyles();
 
   return (
-    <div className="searchbar">
+    <div>
       <SearchBar
         className={classes.search}
         onRequestSearch={handleSearch}
         placeholder="Search some cocktail ..."
-        autoFocus
       />
     </div>
   );
