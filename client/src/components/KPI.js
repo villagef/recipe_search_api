@@ -6,6 +6,7 @@ export default function KPI({ totalCocktails, name, color }) {
     <Grid
       style={{
         backgroundColor: `${color}`,
+        height: '100%',
         color: "white",
         padding: "10px 10px",
         boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",

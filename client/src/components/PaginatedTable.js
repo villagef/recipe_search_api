@@ -82,10 +82,6 @@ export default function PaginatedTable({ data, setData }) {
     setPage(0);
   };
 
-  console.log(data);
-  console.log(updatedList);
-  
-
   const handleSearch = (value) => {
     if (value) {
       setUpdatedList(
@@ -99,6 +95,7 @@ export default function PaginatedTable({ data, setData }) {
     } else {
       setUpdatedList(data);
     }
+    document.querySelector('.MuiInputBase-root').classList.remove('Mui-focused');
   };
 
   return (
@@ -142,6 +139,7 @@ export default function PaginatedTable({ data, setData }) {
             <Grid className={classes.pagination} item>
               <TablePagination
                 rowsPerPageOptions={[5, 10, 25]}
+                labelRowsPerPage="Rows:"
                 component="div"
                 count={updatedList.length}
                 rowsPerPage={rowsPerPage}

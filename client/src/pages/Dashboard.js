@@ -57,8 +57,6 @@ export default function Dashboard() {
     setUpCocktails(cocktails);
   }, [cocktails]);
 
-  console.log(upCocktails);
-
   return (
     <>
       <div className={classes.root}>
@@ -88,7 +86,7 @@ export default function Dashboard() {
               {upCocktails && (
                 <KPI
                   style={{ gridArea: "content3" }}
-                  name="Tropicals"
+                  name="Tropical"
                   color="#34a853"
                   totalCocktails={
                     upCocktails.filter((e) => e.type === "tropical").length

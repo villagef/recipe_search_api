@@ -8,7 +8,7 @@ import SearchInput from "./SearchInput";
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "50vh",
-    width: "80vw",
+    width: "90vw",
     display: "flex",
     margin: "0 auto",
     justifyContent: "center",
@@ -46,6 +46,8 @@ export default function AllCocktails() {
     } else {
       setUpdatedList(cocktails);
     }
+
+    document.querySelector('.MuiInputBase-root').classList.remove('Mui-focused');
   };
 
   return (

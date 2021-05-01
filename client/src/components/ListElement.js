@@ -41,7 +41,6 @@ export default function ListElement({ row, data, setData }) {
   async function handleDeleteClick(id) {
     await axios.delete(`https://scandalecocktails.herokuapp.com/data/${id}`);
     const newData = data.filter((d) => d.id !== id);
-    console.log(newData);
     setData(newData);
   }
 
