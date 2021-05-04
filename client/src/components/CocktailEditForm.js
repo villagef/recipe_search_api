@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   mainContainer: {
     height: "100vh",
     overflowY: "scroll",
-    margin: '20px 0',
+    margin: "20px 0",
     padding: "0 20px",
     boxShadow: "4px 4px 19px -2px rgba(0,0,0,0.64)",
     zIndex: "3000",

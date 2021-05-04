@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { CircularProgress, Grid } from "@material-ui/core";
 import ImageCard from "./ImageCard";
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AllCocktails() {
-  const { cocktails } = useContext(GlobalContext);
+  const cocktails = useSelector((state) => state.data);
   const classes = useStyles();
   const [updatedList, setUpdatedList] = useState(cocktails);
 
@@ -47,7 +47,9 @@ export default function AllCocktails() {
       setUpdatedList(cocktails);
     }
 
-    document.querySelector('.MuiInputBase-root').classList.remove('Mui-focused');
+    document
+      .querySelector(".MuiInputBase-root")
+      .classList.remove("Mui-focused");
   };
 
   return (

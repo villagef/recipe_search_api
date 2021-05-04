@@ -1,11 +1,10 @@
-import {useContext} from 'react'
-import {GlobalContext} from "../context/GlobalState";
-
 import { makeStyles } from "@material-ui/core/styles";
 import Header from "../components/Header";
 import Thumbnail from "../components/Thumbnail";
 import AllCocktails from "../components/AllCocktails";
 import Footer from "../components/Footer";
+
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,16 +17,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
+  const cocktails = useSelector((state) => state.data);
   const classes = useStyles();
-  const {cocktails} = useContext(GlobalContext)
 
   return (
     <div className={classes.root}>
-      <Header/>
+      <Header />
       <Thumbnail />
-      {
-        cocktails && <AllCocktails />
-      }
+      {cocktails && <AllCocktails />}
       <Footer />
     </div>
   );

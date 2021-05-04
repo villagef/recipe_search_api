@@ -66,8 +66,8 @@ export default function PaginatedTable({ data, setData }) {
   const [updatedList, setUpdatedList] = useState([]);
 
   useEffect(() => {
-    setUpdatedList(data)
-  },[data])
+    setUpdatedList(data);
+  }, [data]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -95,7 +95,9 @@ export default function PaginatedTable({ data, setData }) {
     } else {
       setUpdatedList(data);
     }
-    document.querySelector('.MuiInputBase-root').classList.remove('Mui-focused');
+    document
+      .querySelector(".MuiInputBase-root")
+      .classList.remove("Mui-focused");
   };
 
   return (

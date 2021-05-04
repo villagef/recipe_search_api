@@ -1,4 +1,4 @@
-import {useState, useEffect} from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, CardMedia, CardContent, Card } from "@material-ui/core";
 import Cocktail from "./Cocktail";
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     [theme.breakpoints.down("sm")]: {
       width: "90vw",
-      maxWidth: "420px"
+      maxWidth: "420px",
     },
   },
   media: {
@@ -67,23 +67,21 @@ export default function ImageCard({ data }) {
           title={data.name}
         />
         <CardContent>
-          <Typography
-            variant="h6"
-            component="h3"
-            className={classes.spirit}
-          >
+          <Typography variant="h6" component="h3" className={classes.spirit}>
             #{data.mainSpirit} #{data.prepStyle}
           </Typography>
-          <Typography
-            variant="h5"
-            component="h1"
-            className={classes.title}
-          >
+          <Typography variant="h5" component="h1" className={classes.title}>
             {data.name}
           </Typography>
         </CardContent>
       </Card>
-      {showModal && <Cocktail item={currentCocktail} showModal={showModal} setShowModal={setShowModal} />}
+      {showModal && (
+        <Cocktail
+          item={currentCocktail}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
+      )}
     </>
   );
 }

@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Grid } from "@material-ui/core";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import IconButton from "@material-ui/core/IconButton";
-import backgroundImg from '../image/cocktailBackground.jpg';
+import backgroundImg from "../image/cocktailBackground.jpg";
 
 const useStyles = makeStyles((theme) => ({
   root: {

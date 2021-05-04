@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: "80px",
     fontFamily: "Nunito",
-    zIndex: '2000'
+    zIndex: "2000",
   },
   appbar: {
     background: "rgba(0,0,0, 0.7)",
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 40,
     [theme.breakpoints.down("sm")]: {
       fontSize: "1.6rem",
-      paddingLeft: '24px',
+      paddingLeft: "24px",
     },
   },
   icon: {

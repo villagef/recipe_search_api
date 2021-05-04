@@ -1,20 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import PaginatedTable from "../components/PaginatedTable";
 import KPI from "../components/KPI";
 
 import {
-  Table,
-  TableBody,
-  TableContainer,
-  TablePagination,
-  Paper,
   Grid,
-  Button,
   Container,
 } from "@material-ui/core";
-
-import { GlobalContext } from "../context/GlobalState";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  // const { isLoading, isUpdating, error, data } = UseFetchData();
-  const { cocktails } = useContext(GlobalContext);
+  const cocktails = useSelector((state) => state.data);
   const [upCocktails, setUpCocktails] = useState([]);
 
   useEffect(() => {
@@ -100,7 +92,8 @@ export default function Dashboard() {
                   name="Modern"
                   color="#fbbc04"
                   totalCocktails={
-                    upCocktails.filter((e) => e.type === "modern classic").length
+                    upCocktails.filter((e) => e.type === "modern classic")
+                      .length
                   }
                 />
               )}
