@@ -4,10 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import PaginatedTable from "../components/PaginatedTable";
 import KPI from "../components/KPI";
 
-import {
-  Grid,
-  Container,
-} from "@material-ui/core";
+import { Grid, Container } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
-  const cocktails = useSelector((state) => state.data);
+  const cocktails = useSelector((state) => state.products.item);
   const [upCocktails, setUpCocktails] = useState([]);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import { CircularProgress, Grid } from "@material-ui/core";
@@ -29,11 +29,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AllCocktails() {
-  const cocktails = useSelector((state) => state.data);
+  const cocktails = useSelector((state) => state.products.item);
+  const isLoading = useSelector((state) => state.products.loading);
   const classes = useStyles();
-  const [updatedList, setUpdatedList] = useState(cocktails);
+  const [updatedList, setUpdatedList] = useState([]);
 
-  const handleSearch = (value) => {
+  const handleSearch = async (value) => {
     if (value) {
       setUpdatedList(
         cocktails.filter((cocktail) => {
@@ -52,6 +53,10 @@ export default function AllCocktails() {
       .classList.remove("Mui-focused");
   };
 
+  useEffect(() => {
+    setUpdatedList(cocktails);
+  }, [cocktails]);
+
   return (
     <>
       <Grid container spacing={5} className={classes.root}>
@@ -59,7 +64,7 @@ export default function AllCocktails() {
           <h1>The Most Popular Cocktails</h1>
           <SearchInput handleSearch={handleSearch} />
         </Grid>
-        {!updatedList ? (
+        {isLoading ? (
           <Grid item>
             <CircularProgress />
           </Grid>

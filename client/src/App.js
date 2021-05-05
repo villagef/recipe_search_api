@@ -5,29 +5,16 @@ import Dashboard from "./pages/Dashboard";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "./actions/fetchData";
 
 export default function App() {
   const dispatch = useDispatch();
 
-  function getData() {
-    return (dispatch) => {
-      axios
-        .get("https://scandalecocktails.herokuapp.com/data/")
-        .then((res) =>
-          dispatch({
-            type: "FETCH_DATA",
-            data: res.data,
-          })
-        )
-        .catch((err) => console.log(err));
-    };
-  }
-
   useEffect(() => {
-    dispatch(getData());
+    dispatch(fetchProducts());
   }, []);
+  
   return (
     <Router basename="/">
       <div className="App">

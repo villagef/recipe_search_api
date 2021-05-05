@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Home() {
-  const cocktails = useSelector((state) => state.data);
+  const cocktails = useSelector((state) => state.products.item);
   const classes = useStyles();
 
   return (
